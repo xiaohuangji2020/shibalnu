@@ -23,19 +23,19 @@ export default class Logo extends Vue {}
     span {
         position: absolute;
         line-height: 1;
-        animation: tada 10s infinite;
     }
 
     .t-1 {
         bottom: 0;
         left: 0;
-        animation-delay: 5s;
+        animation: tada 10s infinite;
     }
 
     .t-2 {
         right: 0;
         bottom: 0;
-        animation-delay: 7s;
+        animation: my-tada 10s infinite;
+        animation-delay: 2s;
     }
 }
 </style>
