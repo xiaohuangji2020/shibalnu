@@ -2,7 +2,7 @@ const router = [
     {
         path: '/about',
         name: 'about',
-        component: () => import(/* webpackChunkName: 'about' */ '@/views/about/index.vue')
+        component: () => import(/* webpackChunkName: 'about' */ '@/views/about/Index.vue')
     }
 ];
 

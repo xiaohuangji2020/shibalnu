@@ -9,19 +9,27 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 @Component
-export default class MyNav extends Vue {
+export default class TheNav extends Vue {
     private navList = [
         {
             path: '/',
             name: '首页'
         },
         {
-            path: '/buy',
-            name: '购买'
+            path: '/for-sale',
+            name: '在售幼犬'
         },
         {
-            path: '/pic',
-            name: '晒一晒'
+            path: '/dogs',
+            name: '种犬介绍'
+        },
+        {
+            path: '/show',
+            name: '买家秀'
+        },
+        {
+            path: '/about',
+            name: '关于我们'
         }
     ];
 }

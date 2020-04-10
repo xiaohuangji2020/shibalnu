@@ -1,6 +1,5 @@
 <template>
     <div class="index">
-        <my-header></my-header>
         <div class="bar">
             <span class="brand">北方优柴</span>
         </div>
@@ -9,22 +8,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import myHeader from '@/components/common/header.vue';
 
-@Component({
-    components: {
-        myHeader
-    }
-})
+@Component
 export default class Index extends Vue {}
 </script>
 
 <style lang="less" scoped>
 .index {
-    position: relative;
     height: 200vh;
     border-top: 1px solid transparent;
-    background: @bg-light;
 }
 .bar {
     position: relative;

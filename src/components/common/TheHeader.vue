@@ -1,22 +1,22 @@
 <template>
     <header class="header fixed">
-        <logo></logo>
-        <my-nav></my-nav>
+        <the-logo></the-logo>
+        <the-nav></the-nav>
     </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import logo from '@/components/common/logo.vue';
-import myNav from '@/components/common/nav.vue';
+import TheLogo from '@/components/common/TheLogo.vue';
+import TheNav from '@/components/common/TheNav.vue';
 
 @Component({
     components: {
-        myNav,
-        logo
+        TheLogo,
+        TheNav
     }
 })
-export default class Header extends Vue {}
+export default class TheHeader extends Vue {}
 </script>
 
 <style lang="less" scoped>
