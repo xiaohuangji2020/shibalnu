@@ -27,6 +27,7 @@ export default class Index extends Vue {}
     background: url('~@/assets/images/bg/bg-4.png') no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    text-align: center;
 
     .brand {
         display: block;
