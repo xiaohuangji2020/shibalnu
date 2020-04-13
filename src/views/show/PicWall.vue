@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="animate">点击看效果</div>
+        <div class="animate">a点击看效果</div>
         <div class="grid"></div>
     </div>
 </template>
@@ -16,26 +16,22 @@ export default class PicWall extends Vue {
     private tz = 0;
     private s = 0;
     private mounted() {
-        let images = '';
-        const count = 50;
-        for (let i = 1; i <= count; i++) images += '<img width="80" src="https://cn.vuejs.org/images/logo.png" />';
-        $('.grid').append(images);
+        this.initPic();
 
         let d = 0; //延时
-        let ry, tz, s; //定义转换参数
 
         $('.animate').on('click', () => {
             $('img')
-                .each(() => {
+                .each((index: number, el: Element) => {
                     d = Math.random() * 1000; //1ms to 1000ms delay
-                    $(this)
+                    $(el)
                         .delay(d)
                         .animate(
                             { opacity: 0 },
                             {
                                 step: (n: number) => {
-                                    s = 1 - n; //scale - will animate from 0 to 1
-                                    $(this).css('transform', 'scale(' + s + ')');
+                                    this.s = 1 - n; //scale - will animate from 0 to 1
+                                    $(el).css('transform', 'scale(' + this.s + ')');
                                 },
                                 duration: 1000
                             }
@@ -48,8 +44,15 @@ export default class PicWall extends Vue {
         });
     }
 
+    private initPic() {
+        let images = '';
+        const count = 50;
+        for (let i = 1; i <= count; i++) images += '<img src="https://cn.vuejs.org/images/logo.png" />';
+        $('.grid').append(images);
+    }
+
     private storm() {
-        $('img').each((index: number, el: any) => {
+        $('img').each((index: number, el: Element) => {
             this.d = Math.random() * 1000;
             $(el)
                 .delay(this.d)
@@ -62,7 +65,7 @@ export default class PicWall extends Vue {
                             //translating the images from 1000px to 0px
                             this.tz = (1 - n) * 1000;
                             //applying the transformation
-                            $(this).css('transform', 'rotateY(' + this.ry + 'deg) translateZ(' + this.tz + 'px)');
+                            $(el).css('transform', 'rotateY(' + this.ry + 'deg) translateZ(' + this.tz + 'px)');
                         },
                         duration: 3000
                         // easing: 'easeOutQuint'
@@ -75,16 +78,12 @@ export default class PicWall extends Vue {
 
 <style lang="less" scoped>
 .grid {
-    width: 600px;
-    height: 300px;
-    margin: 100px auto 50px auto;
+    margin: 0 auto;
     perspective: 500px; /*For 3d*/
-}
-.grid img {
-    width: 60px;
-    height: 60px;
-    display: block;
-    float: left;
+
+    /deep/ img {
+        width: 100px;
+    }
 }
 
 .animate {

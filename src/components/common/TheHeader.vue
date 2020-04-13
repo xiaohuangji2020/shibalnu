@@ -2,6 +2,7 @@
     <header class="header fixed">
         <the-logo></the-logo>
         <the-nav></the-nav>
+        <the-text-logo></the-text-logo>
     </header>
 </template>
 
@@ -9,11 +10,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import TheLogo from '@/components/common/TheLogo.vue';
 import TheNav from '@/components/common/TheNav.vue';
+import TheTextLogo from '@/components/common/TheTextLogo.vue';
 
 @Component({
     components: {
         TheLogo,
-        TheNav
+        TheNav,
+        TheTextLogo
     }
 })
 export default class TheHeader extends Vue {}

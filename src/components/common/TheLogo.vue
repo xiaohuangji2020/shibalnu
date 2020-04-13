@@ -1,7 +1,7 @@
 <template>
     <div class="logo">
-        <span class="t-1">北方</span>
-        <span class="t-2">优柴</span>
+        <!-- <span class="t-1">北方</span>
+        <span class="t-2">优柴</span> -->
     </div>
 </template>
 
@@ -23,6 +23,7 @@ export default class TheLogo extends Vue {}
     span {
         position: absolute;
         line-height: 1;
+        font-family: BaoTuXiaoBaiTi;
     }
 
     .t-1 {
