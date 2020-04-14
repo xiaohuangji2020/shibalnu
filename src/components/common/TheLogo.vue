@@ -16,7 +16,7 @@ export default class TheLogo extends Vue {}
 .logo {
     position: relative;
     width: 120px;
-    background: url('~@/assets/images/shibalnu/logo-4.jpg') no-repeat;
+    background: url('~@/assets/images/logo/logo-4.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 
