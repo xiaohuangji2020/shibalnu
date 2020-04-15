@@ -1,7 +1,14 @@
 <template>
     <div>
-        <div class="animate">a点击看效果</div>
-        <div class="grid"></div>
+        <div class="animate" @click="getNextScreen">a点击看效果</div>
+        <div class="grid">
+            <div
+                v-for="(item, index) of images"
+                :key="index"
+                :style="{ 'background-image': 'url(' + item + ')' }"
+                class="pic-wall"
+            ></div>
+        </div>
     </div>
 </template>
 
@@ -11,66 +18,54 @@ import $ from 'jquery';
 
 @Component
 export default class PicWall extends Vue {
-    private d = 0;
-    private ry = 0;
-    private tz = 0;
-    private s = 0;
+    private images: string[] = [];
+    private nextImages: string[] = [];
+    private width: number = window.innerWidth;
+    private height: number = window.innerHeight - 100 - 50;
+    private rNum: number = Math.floor(this.width / 200);
+    private cNum: number = Math.floor(this.height / 150);
     private mounted() {
-        this.initPic();
+        for (let i = 1; i <= this.rNum * this.cNum; i++) {
+            this.images.push('/img/picwall/pic-1.jpeg');
+        }
+    }
 
+    private getNextPics() {
+        this.nextImages = [];
+        for (let i = 1; i <= 50; i++) {
+            this.nextImages.push('/img/picwall/pic-2.jpeg');
+        }
+    }
+
+    private getNextScreen() {
+        this.getNextPics();
         let d = 0; //延时
-
-        $('.animate').on('click', () => {
-            $('img')
-                .each((index: number, el: Element) => {
-                    d = Math.random() * 1000; //1ms to 1000ms delay
-                    $(el)
-                        .delay(d)
-                        .animate(
-                            { opacity: 0 },
-                            {
-                                step: (n: number) => {
-                                    this.s = 1 - n; //scale - will animate from 0 to 1
-                                    $(el).css('transform', 'scale(' + this.s + ')');
-                                },
-                                duration: 1000
-                            }
-                        );
-                })
-                .promise()
-                .done(() => {
-                    this.storm(); //淡出效果全部完成时调用
-                });
-        });
-    }
-
-    private initPic() {
-        let images = '';
-        const count = 50;
-        for (let i = 1; i <= count; i++) images += '<img src="https://cn.vuejs.org/images/logo.png" />';
-        $('.grid').append(images);
-    }
-
-    private storm() {
-        $('img').each((index: number, el: Element) => {
-            this.d = Math.random() * 1000;
+        $('.pic-wall').each((index: number, el: Element) => {
+            d = Math.random() * 1000; //1ms to 1000ms delay
             $(el)
-                .delay(this.d)
+                .delay(d)
                 .animate(
-                    { opacity: 1 },
+                    { opacity: 0 },
                     {
                         step: (n: number) => {
-                            //rotating the images on the Y axis from 360deg to 0deg
-                            this.ry = (1 - n) * 360;
-                            //translating the images from 1000px to 0px
-                            this.tz = (1 - n) * 1000;
-                            //applying the transformation
-                            $(el).css('transform', 'rotateY(' + this.ry + 'deg) translateZ(' + this.tz + 'px)');
+                            $(el).css('transform', 'scale(' + n + ')');
                         },
-                        duration: 3000
-                        // easing: 'easeOutQuint'
+                        duration: 300
                     }
-                );
+                )
+                .promise()
+                .done(() => {
+                    this.$set(this.images, index, this.nextImages[index]);
+                    $(el).animate(
+                        { opacity: 1 },
+                        {
+                            step: (n: number) => {
+                                $(el).css('transform', 'scale(' + n + ')');
+                            },
+                            duration: 700
+                        }
+                    );
+                });
         });
     }
 }
@@ -78,11 +73,18 @@ export default class PicWall extends Vue {
 
 <style lang="less" scoped>
 .grid {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
     margin: 0 auto;
     perspective: 500px; /*For 3d*/
 
-    /deep/ img {
-        width: 100px;
+    .pic-wall {
+        width: 200px;
+        height: 150px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
     }
 }
 
