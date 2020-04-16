@@ -6,12 +6,14 @@
             <el-button type="text" class="next-btn" @click="getNextScreen">Next</el-button>
         </div>
         <div class="grid">
-            <div
-                v-for="(item, index) of images"
+            <el-image
+                v-for="(url, index) of images"
                 :key="index"
-                :style="{ 'background-image': 'url(' + item + ')' }"
                 class="pic-wall"
-            ></div>
+                :src="url"
+                :preview-src-list="images"
+            >
+            </el-image>
         </div>
     </div>
 </template>
@@ -29,7 +31,7 @@ export default class PicWall extends Vue {
     private page = 0;
     private pageSize = Math.floor(this.width / 200) * Math.floor(this.height / 150);
     private timing = 0;
-    private waitingTime = 5 * 1000;
+    private waitingTime = 10000 * 1000;
     private mounted() {
         for (let i = 1; i <= this.pageSize; i++) {
             this.images.push('/img/picwall/pic-' + this.page + '.jpeg');
@@ -100,15 +102,20 @@ export default class PicWall extends Vue {
                 .promise()
                 .done(() => {
                     this.$set(this.images, index, this.nextImages[index]);
-                    $(el).animate(
-                        { opacity: 1 },
-                        {
-                            step: (n: number) => {
-                                $(el).css('transform', 'scale(' + n + ')');
-                            },
-                            duration: 700
-                        }
-                    );
+                    $(el)
+                        .animate(
+                            { opacity: 1 },
+                            {
+                                step: (n: number) => {
+                                    $(el).css('transform', 'scale(' + n + ')');
+                                },
+                                duration: 700
+                            }
+                        )
+                        .promise()
+                        .done(() => {
+                            $(el).css('transform', 'none');
+                        });
                 });
         });
     }
@@ -121,7 +128,6 @@ export default class PicWall extends Vue {
     flex-flow: row wrap;
     justify-content: space-around;
     margin: 0 auto;
-    perspective: 500px; /*For 3d*/
 
     .pic-wall {
         width: 200px;
@@ -129,6 +135,10 @@ export default class PicWall extends Vue {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+
+        /deep/ .el-image-viewer__btn {
+            color: white;
+        }
     }
 }
 .op {
