@@ -3,8 +3,9 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-import { Card } from 'element-ui';
+import { Button, Card } from 'element-ui';
 
+Vue.use(Button);
 Vue.use(Card);
 
 Vue.config.productionTip = false;

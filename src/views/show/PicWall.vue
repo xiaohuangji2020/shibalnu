@@ -1,6 +1,10 @@
 <template>
     <div>
-        <div class="animate" @click="getNextScreen">点击看效果</div>
+        <div class="op">
+            <el-button type="text" class="prev-btn" @click="getPrevScreen">Prev</el-button>
+            <div class="wish">愿每一只小柴 都能够被温柔以待</div>
+            <el-button type="text" class="next-btn" @click="getNextScreen">Next</el-button>
+        </div>
         <div class="grid">
             <div
                 v-for="(item, index) of images"
@@ -24,25 +28,61 @@ export default class PicWall extends Vue {
     private height: number = window.innerHeight - 100 - 50;
     private page = 0;
     private pageSize = Math.floor(this.width / 200) * Math.floor(this.height / 150);
+    private timing = 0;
+    private waitingTime = 5 * 1000;
     private mounted() {
         for (let i = 1; i <= this.pageSize; i++) {
             this.images.push('/img/picwall/pic-' + this.page + '.jpeg');
         }
+
+        this.timing = setTimeout(() => {
+            this.autoAnmiation();
+        }, this.waitingTime);
+    }
+
+    private autoAnmiation() {
+        this.page++;
+        this.getNextPics();
+        this.doAnimation();
+        this.timing = setTimeout(() => {
+            this.autoAnmiation();
+        }, this.waitingTime);
     }
 
     private getNextPics() {
         this.nextImages = [];
-        this.page++;
         if (this.page > 4) {
             this.page = 0;
+        }
+        if (this.page < 0) {
+            this.page = 4;
         }
         for (let i = 1; i <= 50; i++) {
             this.nextImages.push('/img/picwall/pic-' + this.page + '.jpeg');
         }
     }
 
-    private getNextScreen() {
+    private getPrevScreen() {
+        clearTimeout(this.timing);
+        this.page--;
         this.getNextPics();
+        this.doAnimation();
+        this.timing = setTimeout(() => {
+            this.autoAnmiation();
+        }, this.waitingTime);
+    }
+
+    private getNextScreen() {
+        clearTimeout(this.timing);
+        this.page++;
+        this.getNextPics();
+        this.doAnimation();
+        this.timing = setTimeout(() => {
+            this.autoAnmiation();
+        }, this.waitingTime);
+    }
+
+    private doAnimation() {
         let d = 0; //延时
         $('.pic-wall').each((index: number, el: Element) => {
             d = Math.random() * 1000; //1ms to 1000ms delay
@@ -91,19 +131,12 @@ export default class PicWall extends Vue {
         background-size: contain;
     }
 }
-
-.animate {
-    text-transform: uppercase;
-    background: rgb(0, 100, 0);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px auto;
-    width: 100px;
-    text-align: center;
+.op {
+    display: flex;
+    justify-content: space-between;
 }
-.animate:hover {
-    background: rgb(0, 75, 0);
+.wish {
+    font-family: HuXiaoBoSaoBaoTi;
+    font-size: 24px;
 }
 </style>
