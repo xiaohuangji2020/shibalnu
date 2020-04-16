@@ -9,9 +9,10 @@
             <el-image
                 v-for="(url, index) of images"
                 :key="index"
-                class="pic-wall"
                 :src="url"
                 :preview-src-list="images"
+                fit="contain"
+                class="pic-wall"
             >
             </el-image>
         </div>
