@@ -12,7 +12,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class TheNav extends Vue {
     private navList = [
         {
-            path: '/',
+            path: '/index',
             name: '首页'
         },
         {
@@ -47,6 +47,10 @@ export default class TheNav extends Vue {
         &:hover {
             opacity: 1;
         }
+    }
+    .router-link-active {
+        font-weight: 500;
+        opacity: 1;
     }
 }
 </style>

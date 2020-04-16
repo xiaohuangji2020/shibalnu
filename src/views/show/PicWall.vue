@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="animate" @click="getNextScreen">a点击看效果</div>
+        <div class="animate" @click="getNextScreen">点击看效果</div>
         <div class="grid">
             <div
                 v-for="(item, index) of images"
@@ -22,18 +22,22 @@ export default class PicWall extends Vue {
     private nextImages: string[] = [];
     private width: number = window.innerWidth;
     private height: number = window.innerHeight - 100 - 50;
-    private rNum: number = Math.floor(this.width / 200);
-    private cNum: number = Math.floor(this.height / 150);
+    private page = 0;
+    private pageSize = Math.floor(this.width / 200) * Math.floor(this.height / 150);
     private mounted() {
-        for (let i = 1; i <= this.rNum * this.cNum; i++) {
-            this.images.push('/img/picwall/pic-1.jpeg');
+        for (let i = 1; i <= this.pageSize; i++) {
+            this.images.push('/img/picwall/pic-' + this.page + '.jpeg');
         }
     }
 
     private getNextPics() {
         this.nextImages = [];
+        this.page++;
+        if (this.page > 4) {
+            this.page = 0;
+        }
         for (let i = 1; i <= 50; i++) {
-            this.nextImages.push('/img/picwall/pic-2.jpeg');
+            this.nextImages.push('/img/picwall/pic-' + this.page + '.jpeg');
         }
     }
 

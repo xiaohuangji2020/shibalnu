@@ -17,7 +17,8 @@ module.exports = {
       "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
       "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
       "prettier/prettier": "error",
-      "max-len": ["error", { "code": 120, "tabWidth": 4 }]
+      "max-len": ["error", { "code": 120, "tabWidth": 4 }],
+      '@typescript-eslint/no-explicit-any': 'off'
   },
   overrides: [
       {
