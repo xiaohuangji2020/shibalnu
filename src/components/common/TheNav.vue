@@ -30,6 +30,10 @@ export default class TheNav extends Vue {
         {
             path: '/about',
             name: '关于我们'
+        },
+        {
+            path: '/cku',
+            name: 'CKU注册详情'
         }
     ];
 }

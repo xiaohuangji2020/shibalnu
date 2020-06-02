@@ -8,6 +8,11 @@ const router = [
         path: '/show',
         name: 'show',
         component: () => import(/* webpackChunkName: 'about' */ '@/views/show/Index.vue')
+    },
+    {
+        path: '/dogs',
+        name: 'dogs',
+        component: () => import(/* webpackChunkName: 'about' */ '@/views/dogs/Index.vue')
     }
 ];
 
