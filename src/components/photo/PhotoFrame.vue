@@ -27,7 +27,7 @@ export default class PhotoFrame extends Vue {
     }
     private drawBox(rc: RoughCanvas) {
         rc.rectangle(100, 100, 1400, 600, {
-            fill: 'rgb(10,150,10)'
+            fill: 'rgba(10, 150, 10, 0.4)'
         });
     }
     private drawAvatar(rc: RoughCanvas) {
@@ -45,7 +45,7 @@ export default class PhotoFrame extends Vue {
         });
     }
     private drawText(ctx: CanvasRenderingContext2D) {
-        ctx.font = '50px sans-serif';
+        ctx.font = '50px HuXiaoBoSaoBaoTi';
         ctx.fillStyle = '#606266';
         ctx.textAlign = 'center';
         [1, 2, 3, 4].forEach((item, index) => {
